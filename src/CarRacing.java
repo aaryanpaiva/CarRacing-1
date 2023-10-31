@@ -33,9 +33,9 @@ public class CarRacing {
         return time;
     }
     public static void main(String[] args) throws IOException {
-        FileReader fin = new FileReader("C:\\Users\\aarya\\Downloads\\input-carracing-f7f4.txt");
+        FileReader fin = new FileReader("C:\\Users\\System5\\Downloads\\input.txt");
         BufferedReader in = new BufferedReader(fin);
-        FileWriter fout = new FileWriter("C:\\Users\\aarya\\Downloads\\input-carracing-f7f4.txt");
+        FileWriter fout = new FileWriter("C:\\Users\\System5\\Downloads\\output.txt");
         BufferedWriter bout = new BufferedWriter(fout);
         PrintWriter pout = new PrintWriter(bout);
 
@@ -44,22 +44,24 @@ public class CarRacing {
         obj = new CarRacing();
 
         for (int cas = 1; cas <= T; cas++) {
+            
+            String s = in.readLine();
+            String[] str = s.split(" ");
+            
+            R = Integer.parseInt(str[0]); // Track length in meters
+            C = Integer.parseInt(str[1]); // number of cars;
             int[][] arr = new int[C][2];//stores id and time.
-            String st = in.readLine();
-            String[] str = st.split(" ");
-            R = Integer.parseInt(str[1]); // Track length in meters
-            C = Integer.parseInt(str[0]); // number of cars;
-
             String[] stat = new String[5];//Takes the stats for per car per line.
 
-            for (int q = 1; q <= C; q++) {//each car
-                st = in.readLine();
+            for (int q = 0; q < C; q++) {//each car
+                String st = in.readLine();
+                
                 stat = st.split(" ");
                 int id = Integer.parseInt(stat[0]);
                 int ns = Integer.parseInt(stat[1]);
-                int ts = Integer.parseInt(str[2]);
-                int tc = Integer.parseInt(str[3]);
-                int td = Integer.parseInt(str[4]);
+                int ts = Integer.parseInt(stat[2]);
+                int tc = Integer.parseInt(stat[3]);
+                int td = Integer.parseInt(stat[4]);
 
                 arr[q][0] = id;
                 arr[q][1] = solve(ns, ts, tc, td);
@@ -75,7 +77,7 @@ public class CarRacing {
                 }
             }
 
-            System.out.println("Case #" + cas + ": " + winnerId);
+            pout.println("Case #" + cas + ": " + winnerId);
 
         }
         pout.close();
